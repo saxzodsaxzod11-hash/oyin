@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainJoy – Aqlni charxla! | Bolalar uchun intellektual o'yinlar</title>
+    <!-- Google Fonts: Nunito va Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tashqi kutubxona: Canvas Confetti (G'alaba animatsiyasi uchun) -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Orqa fon dekorativ shakllari -->
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+
+    <!-- 1. KIRISH OYNASI (WELCOME SCREEN) -->
+    <section id="welcome-screen" class="screen active">
+        <div class="welcome-container glass-card">
+            <div class="welcome-badge">✨ Aqliy rivojlanish platformasi</div>
+            
+            <!-- SVG Qahramon Illustratsiyasi -->
+            <div class="hero-illustration">
+                <svg viewBox="0 0 200 160" width="180" height="145" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="85" r="65" fill="#EDE9FE"/>
+                    <path d="M55 95 C40 95, 35 70, 52 60 C50 40, 75 30, 92 42 C100 32, 120 35, 125 48 C145 45, 160 65, 148 85 C158 102, 140 120, 122 115 C110 128, 85 128, 75 115 C58 120, 45 108, 55 95 Z" fill="#F472B6" stroke="#8B5CF6" stroke-width="4"/>
+                    <path d="M100 42 L100 118" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
+                    <!-- Ko'zlar -->
+                    <circle cx="80" cy="80" r="8" fill="#1E1B4B"/>
+                    <circle cx="83" cy="77" r="3" fill="#FFFFFF"/>
+                    <circle cx="120" cy="80" r="8" fill="#1E1B4B"/>
+                    <circle cx="123" cy="77" r="3" fill="#FFFFFF"/>
+                    <!-- Tabassum -->
+                    <path d="M90 95 Q100 106 110 95" fill="none" stroke="#1E1B4B" stroke-width="4" stroke-linecap="round"/>
+                    <!-- Yulduzchalar -->
+                    <polygon points="35,35 38,43 46,43 40,48 42,56 35,51 28,56 30,48 24,43 32,43" fill="#FBBF24"/>
+                    <polygon points="165,30 167,36 173,36 168,40 170,46 165,42 160,46 162,40 157,36 163,36" fill="#34D399"/>
+                    <circle cx="168" cy="115" r="6" fill="#60A5FA"/>
+                </svg>
+            </div>
+
+            <h1 class="welcome-title">Salom, kichkina bilimdon!</h1>
+            <p class="welcome-subtitle">Aqlingni charxla, yangi bilimlarni kashf et va mazza qilib o‘yna!</p>
+
+            <div class="age-selector-box">
+                <label class="age-label">Yoshingizni tanlang:</label>
+                <div class="age-buttons" id="welcome-age-buttons">
+                    <button type="button" class="age-btn" data-age="5-8">
+                        <span class="age-emoji">🧸</span>
+                        <span class="age-range">5–8 yosh</span>
+                        <span class="age-desc">Boshlang'ich</span>
+                    </button>
+                    <button type="button" class="age-btn" data-age="9-12">
+                        <span class="age-emoji">🚀</span>
+                        <span class="age-range">9–12 yosh</span>
+                        <span class="age-desc">Kichik tadqiqotchi</span>
+                    </button>
+                    <button type="button" class="age-btn" data-age="13-16">
+                        <span class="age-emoji">🧠</span>
+                        <span class="age-range">13–16 yosh</span>
+                        <span class="age-desc">Super aql</span>
+                    </button>
+                </div>
+                <p id="age-error-msg" class="error-text hidden">Iltimos, avval yoshingizni tanlang! 👆</p>
+            </div>
+
+            <button id="start-journey-btn" class="btn-primary btn-large">
+                <span>O‘YINNI BOSHLASH</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ASOSIY PLATFORMA (DASHBOARD) -->
+    <div id="main-app" class="hidden">
+        <!-- Yuqori Navigatsiya Paneli -->
+        <header class="navbar glass-nav">
+            <div class="nav-brand" id="nav-logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">Brain<span>Joy</span></span>
+            </div>
+
+            <nav class="nav-links" id="nav-links">
+                <button class="nav-item active" data-tab="catalog">
+                    <span class="nav-icon">🎮</span> O‘yinlar
+                </button>
+                <button class="nav-item" data-tab="stats">
+                    <span class="nav-icon">📊</span> Natijalarim
+                </button>
+                <button class="nav-item" data-tab="badges">
+                    <span class="nav-icon">🏆</span> Yutuqlar
+                </button>
+                <button class="nav-item" data-tab="about">
+                    <span class="nav-icon">ℹ️</span> Sayt haqida
+                </button>
+            </nav>
+
+            <div class="nav-controls">
+                <div class="stat-pill points-pill" title="Umumiy ballaringiz">
+                    <span>⭐</span>
+                    <strong id="header-score">0</strong>
+                </div>
+                <button id="change-age-trigger" class="age-badge-btn" title="Yosh toifasini o'zgartirish">
+                    <span id="current-age-badge">5–8 yosh</span> ✎
+                </button>
+            </div>
+        </header>
+
+        <!-- Mobil pastki navigatsiya -->
+        <nav class="mobile-nav">
+            <button class="mobile-nav-item active" data-tab="catalog">
+                <span>🎮</span>
+                <small>O‘yinlar</small>
+            </button>
+            <button class="mobile-nav-item" data-tab="stats">
+                <span>📊</span>
+                <small>Natijalar</small>
+            </button>
+            <button class="mobile-nav-item" data-tab="badges">
+                <span>🏆</span>
+                <small>Yutuqlar</small>
+            </button>
+            <button class="mobile-nav-item" data-tab="about">
+                <span>ℹ️</span>
+                <small>Haqida</small>
+            </button>
+        </nav>
+
+        <!-- ASOSIY KONTENT MAYDONI -->
+        <main class="main-content">
+            
+            <!-- BO'LIM 1: O'YINLAR KATALOGI -->
+            <section id="tab-catalog" class="tab-section active">
+                <div class="section-header">
+                    <div>
+                        <h2 id="catalog-title">5–8 yosh uchun aqliy o‘yinlar</h2>
+                        <p class="section-subtitle">O‘zingizga yoqqan o‘yinni tanlang va bilimingizni sinab ko‘ring!</p>
+                    </div>
+                    <div class="category-filter" id="category-filters">
+                        <button class="filter-chip active" data-filter="all">Barchasi</button>
+                        <button class="filter-chip" data-filter="Mantiq">Mantiq</button>
+                        <button class="filter-chip" data-filter="Matematika">Matematika</button>
+                        <button class="filter-chip" data-filter="Xotira">Xotira</button>
+                        <button class="filter-chip" data-filter="Diqqat">Diqqat</button>
+                    </div>
+                </div>
+
+                <!-- O'yin kartalari shu yerga JS orqali chiziladi -->
+                <div id="games-grid" class="games-grid"></div>
+            </section>
+
+            <!-- BO'LIM 2: MENING NATIJALARIM -->
+            <section id="tab-stats" class="tab-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Mening natijalarim</h2>
+                        <p class="section-subtitle">Sizning o‘yinlardagi yutuqlaringiz va o‘sish ko‘rsatkichlaringiz</p>
+                    </div>
+                    <button id="reset-progress-btn" class="btn-danger-outline">Natijalarni tozalash</button>
+                </div>
+
+                <div class="stats-overview-grid">
+                    <div class="stat-card purple">
+                        <div class="stat-icon">🌟</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Umumiy ball</span>
+                            <h3 id="stat-total-score">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-icon">🎮</div>
+                        <div class="stat-info">
+                            <span class="stat-label">O‘ynalgan o‘yinlar</span>
+                            <h3 id="stat-games-played">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <span class="stat-label">To‘g‘ri javoblar</span>
+                            <h3 id="stat-correct-answers">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card yellow">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Aniqlik darajasi</span>
+                            <h3 id="stat-accuracy">0%</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-box glass-card">
+                    <h3>So‘nggi o‘yinlar tarixi</h3>
+                    <div id="game-history-list" class="history-list">
+                        <p class="empty-msg">Hali birorta ham o‘yin o‘ynalmagan. Hoziroq boshlang!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BO'LIM 3: YUTUQLAR VA MUKOFOTLAR -->
+            <section id="tab-badges" class="tab-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Yutuqlar va mukofotlar</h2>
+                        <p class="section-subtitle">Ballar to‘plang va barcha oltin nishonlarni qo‘lga kiriting!</p>
+                    </div>
+                </div>
+
+                <div id="badges-grid" class="badges-grid"></div>
+            </section>
+
+            <!-- BO'LIM 4: SAYT HAQIDA -->
+            <section id="tab-about" class="tab-section">
+                <div class="about-card glass-card">
+                    <div class="about-header">
+                        <span class="about-emoji">🧠✨</span>
+                        <h2>BrainJoy – Aqlni charxla!</h2>
+                        <p>5 yoshdan 16 yoshgacha bo‘lgan bolalar va o‘smirlar uchun maxsus ishlab chiqilgan zamonaviy intellektual o‘yinlar platformasi.</p>
+                    </div>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <span class="f-icon">🎯</span>
+                            <h4>Yoshga moslashuvchan tizim</h4>
+                            <p>Har bir yosh toifasi (5–8, 9–12, 13–16) uchun bolaning psixologik va aqliy rivojlanish darajasiga mos maxsus o‘yinlar.</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="f-icon">🧩</span>
+                            <h4>6 xil ko‘nikmani rivojlantirish</h4>
+                            <p>Mantiq, matematika, xotira, diqqatni jamlash, tezkor fikrlash va muammolarni hal qilish qobiliyatlarini oshiradi.</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="f-icon">🏆</span>
+                            <h4>Rag‘batlantiruvchi tizim</h4>
+                            <p>Har bir to‘g‘ri javob uchun ballar, yulduzchalar va maxsus mukofot nishonlari bolani yanada ko‘proq o‘rganishga undaydi.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BO'LIM 5: O'YIN MAYDONI (ACTIVE GAME ARENA) -->
+            <section id="game-arena" class="tab-section">
+                <div class="arena-top-bar glass-card">
+                    <button id="exit-game-btn" class="btn-secondary">
+                        ← O‘yinlarga qaytish
+                    </button>
+                    <div class="arena-title-box">
+                        <span id="arena-game-emoji">🎮</span>
+                        <h3 id="arena-game-title">O‘yin nomi</h3>
+                    </div>
+                    <div class="arena-metrics">
+                        <div class="metric-box">
+                            <small>Bosqich</small>
+                            <strong id="arena-progress">1 / 5</strong>
+                        </div>
+                        <div class="metric-box highlight">
+                            <small>Ball</small>
+                            <strong id="arena-score">0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- O'yin jarayoni konteyneri -->
+                <div id="game-play-area" class="game-play-area glass-card">
+                    <!-- Dinamik o'yin kontenti shu yerga yuklanadi -->
+                </div>
+
+                <!-- O'yin yakuni (Natija oynasi) -->
+                <div id="game-result-area" class="game-result-area glass-card hidden">
+                    <div class="result-stars" id="result-stars">⭐⭐⭐</div>
+                    <h2 id="result-headline">Barakalla! Sen uddalading! 🎉</h2>
+                    <p id="result-subtext">Ajoyib natija ko‘rsatdingiz!</p>
+                    
+                    <div class="result-summary-pills">
+                        <div class="r-pill">
+                            <span>To‘plangan ball:</span>
+                            <strong id="final-earned-points">+50</strong>
+                        </div>
+                        <div class="r-pill">
+                            <span>To‘g‘ri javoblar:</span>
+                            <strong id="final-correct-count">5 / 5</strong>
+                        </div>
+                    </div>
+
+                    <div class="result-actions">
+                        <button id="play-again-btn" class="btn-primary">🔄 Qayta o‘ynash</button>
+                        <button id="back-to-catalog-btn" class="btn-secondary">🏠 O‘yinlarga qaytish</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- YOSH TANLASH MODALI (Navbardan o'zgartirish uchun) -->
+    <div id="age-modal" class="modal-overlay hidden">
+        <div class="modal-box glass-card">
+            <h3>Yosh toifasini tanlang</h3>
+            <p>O‘yinlar ro‘yxati tanlangan yoshga qarab avtomatik yangilanadi.</p>
+            <div class="age-buttons modal-age-btns">
+                <button type="button" class="age-btn" data-age="5-8">
+                    <span class="age-emoji">🧸</span>
+                    <span class="age-range">5–8 yosh</span>
+                </button>
+                <button type="button" class="age-btn" data-age="9-12">
+                    <span class="age-emoji">🚀</span>
+                    <span class="age-range">9–12 yosh</span>
+                </button>
+                <button type="button" class="age-btn" data-age="13-16">
+                    <span class="age-emoji">🧠</span>
+                    <span class="age-range">13–16 yosh</span>
+                </button>
+            </div>
+            <button id="close-modal-btn" class="btn-secondary" style="margin-top: 15px; width: 100%;">Bekor qilish</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
